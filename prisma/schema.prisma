@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite" // Change to your preferred database provider
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 Int                  @id @default(autoincrement())
+  name               String
+  email              String               @unique
+  password           String
+  callUpNumber       String               @unique
+  stateCode          String?
+  platoonId          Int?
+  platoon            Platoon?             @relation(fields: [platoonId], references: [id])
+  groupId            Int?
+  group              Group?               @relation(fields: [groupId], references: [id])
+  createdAt          DateTime             @default(now())
+  messages           Message[]
+  PassportPhoto      PassportPhoto[]
+}
+
+model Platoon {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  users  User[]
+  groups Group[]
+}
+
+model Group {
+  id        Int       @id @default(autoincrement())
+  name      String
+  platoonId Int
+  platoon   Platoon   @relation(fields: [platoonId], references: [id])
+  users     User[]
+  messages  Message[]
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  groupId   Int
+  group     Group    @relation(fields: [groupId], references: [id])
+}
+
+
+
+
+model PassportPhoto {
+  id     Int    @id @default(autoincrement())
+  url    String
+  userId Int
+  user   User   @relation(fields: [userId], references: [id])
+}
