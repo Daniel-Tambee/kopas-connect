@@ -8,19 +8,19 @@ datasource db {
 }
 
 model User {
-  id                 Int                  @id @default(autoincrement())
-  name               String
-  email              String               @unique
-  password           String
-  callUpNumber       String               @unique
-  stateCode          String?
-  platoonId          Int?
-  platoon            Platoon?             @relation(fields: [platoonId], references: [id])
-  groupId            Int?
-  group              Group?               @relation(fields: [groupId], references: [id])
-  createdAt          DateTime             @default(now())
-  messages           Message[]
-  PassportPhoto      PassportPhoto[]
+  id            Int             @id @default(autoincrement())
+  name          String
+  email         String          @unique
+  password      String
+  callUpNumber  String?         @unique
+  stateCode     String?
+  platoonId     Int?
+  platoon       Platoon?        @relation(fields: [platoonId], references: [id])
+  groupId       Int?
+  group         Group?          @relation(fields: [groupId], references: [id])
+  createdAt     DateTime        @default(now())
+  messages      Message[]
+  PassportPhoto PassportPhoto[]
 }
 
 model Platoon {
@@ -48,9 +48,6 @@ model Message {
   groupId   Int
   group     Group    @relation(fields: [groupId], references: [id])
 }
-
-
-
 
 model PassportPhoto {
   id     Int    @id @default(autoincrement())
