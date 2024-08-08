@@ -15,10 +15,6 @@ export class CreateUserDto {
   @IsString()
   password: string;
 
-  @ApiProperty({ example: 'NYSC12345678' })
-  @IsString()
-  callUpNumber: string;
-
   @ApiProperty({ example: 'NY' })
   @IsOptional()
   @IsString()
